@@ -10,7 +10,7 @@ class SongContainer extends React.Component {
     };
   }
 
-  componentWillUpdate(){
+  componentDidMount(){
     const url = "https://itunes.apple.com/gb/rss/topsongs/limit=20/json"
     const request = new XMLHttpRequest();
     request.open("GET", url);
@@ -22,17 +22,21 @@ class SongContainer extends React.Component {
         const data = JSON.parse(jsonString);
 
         this.setState({
-          songs: data,
+          songs: data.feed.entry
+
         });
+        
       }
     });
     request.send()
   }
 
   render(){
+
     return(
+      
         <div>
-          <Song song={this.state.songs} />
+       <Song songs={this.state.songs} /> 
         </div>
       );
   }
